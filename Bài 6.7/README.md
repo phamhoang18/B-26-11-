@@ -19,7 +19,7 @@
 
 ### 3. Màn hình Thực thi Nghiệp vụ chính (Lập Hóa đơn / Bán hàng / Chấm công / Đặt phòng):
 ![Màn hình Nghiệp vụ](screenshots/B6.7_start.png)
-![Màn hình Nghiệp vụ](screenshots/B6.7_KQ.png)
+![Màn hình Nghiệp vụ](screenshots/B6.7_kQ.png)
 
 
 
