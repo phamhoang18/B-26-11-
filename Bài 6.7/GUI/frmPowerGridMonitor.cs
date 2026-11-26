@@ -82,14 +82,12 @@ namespace GUI
             if (this.IsDisposed || !this.IsHandleCreated)
                 return;
 
-            // BẮT BUỘC: Kiểm tra InvokeRequired vì hàm này được gọi từ Thread phụ (Task.Run)
             if (this.InvokeRequired)
             {
                 this.Invoke(new Action(() => UpdateTelemetryUI(data)));
                 return;
             }
 
-            // --- ĐOẠN CODE DƯỚI ĐÂY CHẠY AN TOÀN TRÊN MAIN UI THREAD ---
             lblVoltage.Text = $"{data.VoltageKV:0.00} kV";
             lblLoadPercent.Text = $"{data.LoadPercent} %";
 
@@ -99,7 +97,6 @@ namespace GUI
                 lblWarningBanner.ForeColor = Color.Red;
                 lblWarningBanner.Text = $"CẢNH BÁO NGUY HIỂM: Trạm {data.SubstationName} đang QUÁ TẢI ({data.LoadPercent}%)!";
 
-                // Thêm dòng cảnh báo mới lên đầu DataGridView
                 dgvGridLogs.Rows.Insert(0,
                     data.Timestamp.ToString("HH:mm:ss dd/MM/yyyy"),
                     data.SubstationName,
@@ -118,7 +115,6 @@ namespace GUI
                 lblWarningBanner.Text = "Trạng thái vận hành: Ổn định trong ngưỡng an toàn (<= 85%)";
             }
 
-            // Cập nhật StatusStrip
             lblLastPacketTime.Text = $"  Gói tin cuối: {data.Timestamp:HH:mm:ss}  ";
             lblCycleCounter.Text = $"Tổng chu kỳ đã quét: {data.CycleCount}";
         }
@@ -149,7 +145,6 @@ namespace GUI
 
         private void frmPowerGridMonitor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Hủy luồng nền ngay khi người dùng nhấn nút X đóng Form
             _cts?.Cancel();
         }
     }
