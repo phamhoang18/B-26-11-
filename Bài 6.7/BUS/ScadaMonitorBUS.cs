@@ -20,7 +20,6 @@ namespace BUS
             }
             catch
             {
-                // Dữ liệu dự phòng nếu máy chưa cấu hình SQL Server
                 return new List<SubstationDTO>
                 {
                     new SubstationDTO { SubstationCode = "TBA-HD110", SubstationName = "Trạm 110kV Hà Đông", NominalVoltageKV = 110.0 },
@@ -30,9 +29,6 @@ namespace BUS
             }
         }
 
-        /// <summary>
-        /// Vòng lặp nền SCADA thu thập thông số mỗi 2 giây
-        /// </summary>
         public Task StartPollingLoopAsync(
             SubstationDTO substation,
             Action<GridTelemetryDTO> onDataReceivedCallback,
@@ -47,7 +43,6 @@ namespace BUS
                 {
                     cycle++;
 
-                    // Sinh ngẫu nhiên Điện áp (108.0kV - 115.0kV) và Mức tải (50% - 98%)
                     double voltage = Math.Round(108.0 + rnd.NextDouble() * 7.0, 2);
                     int loadPercent = rnd.Next(50, 99);
 
@@ -61,7 +56,6 @@ namespace BUS
                         CycleCount = cycle
                     };
 
-                    // Nếu quá tải (> 85%), ghi log sự cố xuống SQL Server ngay trên luồng nền
                     if (telemetry.IsOverloaded)
                     {
                         try
@@ -69,13 +63,11 @@ namespace BUS
                             string msg = $"CẢNH BÁO QUÁ TẢI: Tải đạt {telemetry.LoadPercent}% (Ngưỡng > 85%)";
                             _logDal.InsertOverloadLog(telemetry, msg);
                         }
-                        catch { /* Bỏ qua lỗi DB nếu chạy offline */ }
+                        catch {}
                     }
 
-                    // Kích hoạt callback gửi gói tin về tầng GUI (đang chạy trên Background Thread)
                     onDataReceivedCallback?.Invoke(telemetry);
 
-                    // Chờ định kỳ 2 giây cho chu kỳ quét tiếp theo
                     try
                     {
                         await Task.Delay(2000, token);
