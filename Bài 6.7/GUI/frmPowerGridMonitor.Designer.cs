@@ -70,7 +70,6 @@
             this.statusStripMain.SuspendLayout();
             this.SuspendLayout();
 
-            // grpControl
             this.grpControl.Controls.Add(this.btnStopScada);
             this.grpControl.Controls.Add(this.btnStartScada);
             this.grpControl.Controls.Add(this.cboSubstations);
@@ -104,7 +103,6 @@
             this.btnStopScada.UseVisualStyleBackColor = false;
             this.btnStopScada.Click += new System.EventHandler(this.btnStopScada_Click);
 
-            // grpDashboard
             this.grpDashboard.Controls.Add(this.lblWarningBanner);
             this.grpDashboard.Controls.Add(this.lblLoadPercent);
             this.grpDashboard.Controls.Add(this.lblLoadTitle);
@@ -142,7 +140,6 @@
             this.lblWarningBanner.Location = new System.Drawing.Point(65, 112);
             this.lblWarningBanner.Text = "Trạng thái vận hành: Chưa kích hoạt luồng đo lường";
 
-            // grpLogs
             this.grpLogs.Controls.Add(this.dgvGridLogs);
             this.grpLogs.Location = new System.Drawing.Point(15, 255);
             this.grpLogs.Size = new System.Drawing.Size(850, 260);
@@ -152,7 +149,6 @@
             this.dgvGridLogs.Location = new System.Drawing.Point(3, 19);
             this.dgvGridLogs.Size = new System.Drawing.Size(844, 238);
 
-            // statusStripMain
             this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
                 this.lblConnectionState, this.lblLastPacketTime, this.lblCycleCounter
             });
@@ -170,7 +166,6 @@
             this.lblCycleCounter.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lblCycleCounter.Text = "Tổng chu kỳ đã quét: 0";
 
-            // frmPowerGridMonitor
             this.ClientSize = new System.Drawing.Size(880, 551);
             this.Controls.Add(this.statusStripMain);
             this.Controls.Add(this.grpLogs);
